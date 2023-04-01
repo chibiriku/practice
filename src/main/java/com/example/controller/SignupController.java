@@ -36,9 +36,6 @@ public class SignupController {
 	@PostMapping("signup")
 	public String postSignup(@ModelAttribute SignupForm form) {
 		log.info(form.toString());
-		return"redirect;/login";
+		return"redirect:/login";
 	}
-	
-	
-	
 }
