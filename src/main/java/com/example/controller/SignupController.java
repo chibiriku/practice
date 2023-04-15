@@ -53,13 +53,13 @@ public class SignupController {
 		return  getSignup(model, form);
 		}
 		
+		log.info(form.toString());
+		
 		//formをMUserに登録
 		MUser user = modelMapper.map(form, MUser.class);
 		
 		//ユーザー登録
 		userService.signup(user);
-		
-		log.info(form.toString());
 		
 		//ログイン画面にリダイレクト
 		return"redirect:/login";
