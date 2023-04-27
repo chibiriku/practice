@@ -10,5 +10,9 @@ public interface UserService {
 	
 	//ユーザー取得
 	public List<MUser> getUsers();
+	
+	//ユーザー情報一件取得
+	public MUser getUserOne(String userId);
+	
 
 }
