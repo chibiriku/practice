@@ -11,30 +11,46 @@
 	<result column="gender" property="gender"/>
 	<result column="department_id" property="departmentId"/>
 	<result column="role" property="role"/>
+	<association property="department" resultMap="department"/>
 </resultMap>
-    <!-- ユーザー1件登録 -->
-    <insert id="insertOne">
-        insert into m_user(user_id, password, user_name, birthday, age, gender, department_id, role) 
-        values (#{userId}, #{password}, #{userName}, #{birthday}, #{age}, #{gender}, #{departmentId}, #{role})
-    </insert>
-    
-    <!-- ユーザー複数取得 -->
-    <select id="findMany" resultType="MUser">
-    	select * from m_user
-    </select>
-    
-    <!-- ユーザー検索 -->
-    <select id="findOne" resultMap="user">
-    	select * from m_user where user_id = #{user_Id}
-    </select>
-    
-    <!-- ユーザー更新 -->
-    <update id="updateOne">
-    	update m_user set password=#{password}, user_name=#{userName} where user_id=#{userId}
-    </update>
-    
-    <!-- ユーザー削除 -->
-    <delete id="deleteOne">
-    	delete from m_user where user_id=#{userId}
-    </delete>
+
+<!-- 部署マッピング -->
+<resultMap type="com.example.domain.user.model.Department" id="department">
+	<id column="department_id" property="departmentId"/>
+	<result column="department_name" property="departmentName"/>
+</resultMap>
+
+<!-- ユーザー1件登録 -->
+<insert id="insertOne">
+    insert into m_user(user_id, password, user_name, birthday, age, gender, department_id, role) 
+    values (#{userId}, #{password}, #{userName}, #{birthday}, #{age}, #{gender}, #{departmentId}, #{role})
+</insert>
+
+<!-- ユーザー複数取得 -->
+<select id="findMany" resultType="MUser">
+	select * from m_user 
+	<where>
+		<if test="userId != null">
+			user_id like '%'||#{userId}||'%'
+		</if>
+		<if test="userName != null">
+			and user_name like '%'||#{userName}||'%'
+		</if>
+	</where>
+</select>
+
+<!-- ユーザー検索 -->
+<select id="findOne" resultMap="user">
+	select * from m_user left join m_department on m_user.department_id=m_department.department_id  where user_id = #{user_Id} 
+</select>
+
+<!-- ユーザー更新 -->
+<update id="updateOne">
+	update m_user set password=#{password}, user_name=#{userName} where user_id=#{userId}
+</update>
+
+<!-- ユーザー削除 -->
+<delete id="deleteOne">
+	delete from m_user where user_id=#{userId}
+</delete>
 </mapper>
