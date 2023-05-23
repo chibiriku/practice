@@ -2,6 +2,7 @@
 <html xmls:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 <head>
 <link rel="stylesheet" th:href="@{/css/user/list.css}">
+<script th:src="@{/js/user/detail.js}" defer></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -50,10 +51,10 @@
 					</tr>
 				</tbody>
 			</table>
-			<div class="text-center">
-				<button class="btn btn-danger" type="submit" name="delete">削除</button>
-				<button class="btn btn-primary" type="submit" name="update">更新</button>
-			</div>
+			<div class="text-center mt-s2">
+				<button id="btn-delete" class="btn btn-danger" type="button">削除（REST)</button>
+				<button id="btn-update" class="btn btn-primary" type="button">更新（REST）</button>
+			</div>"
 			<th:block th:if="*{salaryList != null and salaryList.size()> 0}">
 				<div class="header border-bottom">
 					<h1 class="h2">給料</h1>
